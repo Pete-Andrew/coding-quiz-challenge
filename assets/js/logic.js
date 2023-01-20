@@ -16,7 +16,7 @@ var endscreen = document.querySelector("#end-screen");
 var submit = document.querySelector("#submit"); //the submit button
 var initials = document.querySelector("#initials"); // the intials text space
 
-var highScoresList = document.querySelector("#highscores");
+// var highScoresList = document.querySelector("#highscores");
 
 var timeLeft = 100; //sets initial time
     console.log(timeLeft);
@@ -86,7 +86,7 @@ function clickOnAnswers () {
             //e.target is the target of the click function, with 
             // e being a short var reference for event object.
             // if the button being clicked == correctAnswerIndex the fucntion runs
-    var answerSelected = buttonList.forEach(function (i) {
+        buttonList.forEach(function (i) {
         i.addEventListener("click", function (e) {
             if (
               questions[index].answers[questions[index].correctAnswerIndex] ==
@@ -143,8 +143,9 @@ function countDown () {
     //ends the game at 0     
         score = timeLeft;
         document.querySelector("#final-score").textContent = score;
+        
         showEnd(); 
-    
+     
     }   
     
     document.querySelector("#time").textContent = timeLeft;    
@@ -175,43 +176,39 @@ function countDown () {
             //clears the array when submit is pressed
             initials.value ="";
             console.log(highScoreArray);
-
+         
         });    
         }
 
 //append Li to highscores ol
 
-// function initHighScoreDisplay () {
 
-// var storedInitialsInput = JSON.parse(localStorage.getItem("intitalsInput"));
-//     if (storedInitialsInput !== null) {
-//         initials = storedInitialsInput;
-//     }
-// }
+function saveHighscore() {
+  // get value of input box
+  var initialsInput = initials.value.trim();
+    console.log(initialsInput);
+  if (initialsInput !== "") {
+    // get saved scores from localstorage, or if not any, set to empty array
+    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
-// renderHighScoreArray(); 
+    // format new score object for current user
+    var newScore = {
+      score: timeLeft,
+      initials: initialsInput
+    };
 
-// // Stores initialsInput to local storage as strings
-// function storeHighScoreInputInitials () {
-//     localStorage.setItem("initialsInput",JSON.stringify(initials));
-// }
+    // save highscores to localstorage
+    highscores.push(newScore);
+    window.localStorage.setItem("highscores", JSON.stringify(highscores));
 
+    // redirect to next page
+    window.location.href = "highscores.html";
+  }
+}
 
-// function renderHighScoreArray() {
-// // Clear highScoresList element
-// //   highScoresList.innerHTML = "";
+// submit initials
+submit.onclick = saveHighscore;
 
-//   // Render a new li for each initialsInput
-//   for (var i = 0; i < highScoreArray.length; i++) {
-//     var arrayDisplay = highScoreArray[i];
-
-//     var li = document.createElement("li");
-//     li.textContent = arrayDisplay;
-//     li.setAttribute("data-index", i);
-
-//     highScoresList.appendChild(li);
-//   }
-// }
 
 
 
