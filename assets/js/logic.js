@@ -180,45 +180,29 @@ function countDown () {
         });    
         }
 
-//append Li to highscores ol
-
-
 function saveHighscore() {
   // get value of input box
   var initialsInput = initials.value.trim();
     console.log(initialsInput);
   if (initialsInput !== "") {
     // get saved scores from localstorage, or if not any, set to empty array
-    var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
-    // format new score object for current user
-    var newScore = {
+    // creates an object called newPlayerScore each time the quiz is run
+    var newPlayerScore = {
       score: timeLeft,
       initials: initialsInput
     };
 
     // save highscores to localstorage
-    highscores.push(newScore);
-    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+    highscores.push(newPlayerScore);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
 
-    // redirect to next page
-    window.location.href = "highscores.html";
+    // redirect to the highscores page
+    location.href = "highscores.html";
   }
 }
 
-// submit initials
+// submit initials using the submit button
 submit.onclick = saveHighscore;
-
-
-
-
-// make an Array of the highscores intials by pushing initials to high scores array
-
-//save the input initials to local storage
-// render that array on the highscores page ol (id 'highscores') by appending new li items
-
-
-// WHEN the game is over
-// THEN I can save my initials and score
-
 
